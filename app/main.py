@@ -10,11 +10,11 @@ class BudgetItem(BaseModel):
     price: float
     tag: Union[str,None] = None
 
-@app.get("/budget_items/")
+@app.get("/budget_item/")
 async def get_all_budget_items():
     return budget
 
-@app.get("/budget_items/{item_id}")
+@app.get("/budget_item/{item_id}")
 async def get_budget_item_by_id(item_id: int):
     try:
         return budget[item_id]
