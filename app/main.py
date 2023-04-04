@@ -14,20 +14,22 @@ class BudgetItem(BaseModel):
 async def get_all_budget_items():
     return budget
 
-@app.get("/budget_item/{item_id}")
-async def get_budget_item_by_id(item_id: int):
+
+@app.get("/budget_item/{item_parameter}")
+async def get_budget_item_by_parameter(item_parameter: int):
     try:
-        return budget[item_id]
+        return budget[item_parameter]
     except IndexError:
         return {"message": "Budget item not found"}
-    
-@app.get("/budget_item/{item_tag}")
-async def get_budget_item_by_tag(item_tag:str):
-    result = list(filter(lambda x: x.tag==item_tag,budget))
+
+@app.get("/budget_item/{item_parameter}")
+async def get_budget_item_by_parameter(item_parameter:str):
+    result = list(filter(lambda x: x.tag==item_parameter,budget))
     if len(result)!=0:
         return result
     else:
         return {"message": "Budget item not found"}
+
 
 @app.post("/budget_item/")
 async def add_budget_item(Name: str,Price: float,Tag: str = None):
