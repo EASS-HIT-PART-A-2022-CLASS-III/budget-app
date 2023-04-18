@@ -10,21 +10,46 @@ class BudgetItem(BaseModel):
     price: float
     tag: Union[str,None] = None
 
+@app.get("/")
+async def landing_page():
+    return{"message":"welcome to the site"}
+
 @app.get("/budget_item/")
 async def get_all_budget_items():
     return budget
 
 
-@app.get("/budget_item/{item_parameter}")
-async def get_budget_item_by_parameter(item_parameter: int):
+@app.get("/budget_item/id")
+async def get_budget_item_ids():
+    result = []
+    for i in range(len(budget)):
+        result.append((i,budget[i].name))
+    if len(result)!=0:
+        return result
+    else:
+        return {"message": "Budget item not found"}
+
+@app.get("/budget_item/id/{item_id}")
+async def get_budget_item_by_id(item_id: int):
     try:
-        return budget[item_parameter]
+        return budget[item_id]
     except IndexError:
         return {"message": "Budget item not found"}
 
-@app.get("/budget_item/{item_parameter}")
-async def get_budget_item_by_parameter(item_parameter:str):
-    result = list(filter(lambda x: x.tag==item_parameter,budget))
+@app.get("/budget_item/tag")
+async def get_budget_item_tags():
+    result = []
+    for item in budget:
+        if item.tag not in result:
+            result.append(item.tag)
+    if len(result)!=0:
+        return result
+    else:
+        return {"message": "Budget item not found"}
+
+@app.get("/budget_item/{item_tag}")
+async def get_budget_item_by_tag(item_tag:str):
+    result = list(filter(lambda x: x.tag==item_tag,budget))
     if len(result)!=0:
         return result
     else:
