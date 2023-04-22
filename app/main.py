@@ -26,7 +26,7 @@ async def get_all_budget_items():
             result[item.tag] = item.price
         else:
             result[item.tag] = result[item.tag] + item.price
-    if len(result)!=0:
+    if len(result) != 0:
         return result
     else:
         return {"error": "budget is empty"}
@@ -38,7 +38,7 @@ async def get_budget_item_ids():
     for i in range(len(budget)):
         id = i
         name = budget[i].name
-        result[id]=name
+        result[id] = name
     if len(result) != 0:
         return result
     else:
@@ -58,22 +58,28 @@ async def get_budget_item_tags():
     result = {}
     for item in budget:
         if item.tag not in result:
-            result[item.tag]=1
+            result[item.tag] = 1
         else:
-            result[item.tag] = result.get(item.tag)+1
+            result[item.tag] = result.get(item.tag) + 1
     if len(result) != 0:
         return result
     else:
         return {"error": "Budget has no tags"}
 
 
-@app.get("/budget_item/{item_tag}")
+@app.get("/budget_item/tag/{item_tag}")
 async def get_budget_item_by_tag(item_tag: str):
-    result = list(filter(lambda x: x.tag == item_tag, budget))
+    result = {}
+    for item in budget:
+        if item.tag == item_tag:
+            if item.name not in result:
+                result[item.name] = item.price
+            else:
+                result[item.name] = result[item.name] + item.price
     if len(result) != 0:
         return result
     else:
-        return {"error": "Budget item not found"}
+        return {"error": "tag not found in budget"}
 
 
 @app.post("/budget_item/", response_model=BudgetItem)
@@ -83,7 +89,7 @@ async def add_budget_item(item: BudgetItem):
 
 
 @app.put("/budget_item/{item_id}")
-async def edit_budget_item(item: BudgetItem,item_id:int):
+async def edit_budget_item(item: BudgetItem, item_id: int):
     try:
         budget[item_id].name = item.name
         budget[item_id].price = item.price
@@ -92,6 +98,7 @@ async def edit_budget_item(item: BudgetItem,item_id:int):
     except IndexError:
         return {"error": "Budget item not found"}
 
+
 @app.delete("/budget_item/{item_id}")
 async def remove_budget_item(item_id: int):
     try:
@@ -99,4 +106,3 @@ async def remove_budget_item(item_id: int):
         return {"message": "Budget item removed succcessfully"}
     except IndexError:
         return {"error": "Budget item not found"}
-    
