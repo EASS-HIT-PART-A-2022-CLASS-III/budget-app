@@ -40,9 +40,7 @@ def test_full():
 
     response = client.get("/budget_item/id/0")
     assert response.status_code == 200
-    assert response.json() == {"name": "pizza", "price": 100, "tag": "food"}
-
-    client.close()
+    assert response.json() == {"name": "pizza", "price": 100, "tag": "food"} 
 
   
 
