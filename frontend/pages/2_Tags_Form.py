@@ -8,7 +8,7 @@ with st.form("Tag Form"):
     tag = st.text_input("please enter tag")
     submitted = st.form_submit_button("submit")
     if submitted:
-        response = requests.get(url=f"http://localhost:8000/budget_item/tag/{tag}").json()
+        response = requests.get(url=f"http://project-backend-1:8000/budget_item/tag/{tag}").json()
         name_list = []
         price_list = []
         for item in response:

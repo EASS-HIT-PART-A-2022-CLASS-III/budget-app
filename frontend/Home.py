@@ -3,7 +3,7 @@ import requests
 import pandas as pd
 import matplotlib.pyplot as plt
 
-response = requests.get(url="http://localhost:8000/budget_item").json()
+response = requests.get(url="http://project-backend-1:8000/budget_item").json()
 type_list = []
 price_list = []
 for item in response:
