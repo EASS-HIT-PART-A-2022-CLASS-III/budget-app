@@ -1,13 +1,11 @@
 services:
   backend:
-    build: 
-      context: backend
-      dockerfile: dockerfile
+    build: backend/.
     ports:
-      - "80:80"
+      - "8000:8000"
+    expose:
+      - 8000
   frontend:
-    build: 
-      context: frontend
-      dockerfile: dockerfile
+    build: frontend/.
     ports:
-      - "8501:8501"
+      - "80:8501"
