@@ -1,6 +1,8 @@
 # Smart Budget
 
-Welcome to the README for Smart Budget! This document will provide you with a brief overview of the application and its functionalities, as well as instructions for installation and usage.
+Welcome to the README for Smart Budget! :money-with-wings:
+
+This document will provide you with a brief overview of the application and its functionalities, as well as instructions for installation and usage.
 
 ## Overview
 This application is designed to have a handy simple way to maintain and manage a budget
