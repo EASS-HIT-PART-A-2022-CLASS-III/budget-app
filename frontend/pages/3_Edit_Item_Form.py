@@ -4,7 +4,7 @@ import pandas as pd
 st.title("Edit Item Form")
 st.write("On this page you can edit an item already on your list")
 
-response = requests.get(url="http://budget-app-backend-1:8000/budget_item/id").json()
+response = requests.get(url="http://budget-app-backend-1:8000/v1/budget_item/id").json()
 index_list = []
 name_list = []
 for item in response:
@@ -15,7 +15,7 @@ index = st.selectbox("please select the index of the product you would like to e
 if index=="error":
     st.write("Budget is currently empty")
 else:
-    response = requests.get(url=f"http://budget-app-backend-1:8000/budget_item/id/{index}").json()
+    response = requests.get(url=f"http://budget-app-backend-1:8000/v1/budget_item/id/{index}").json()
     st.table(response)
 
 with st.form("Edit Form"):
@@ -25,5 +25,5 @@ with st.form("Edit Form"):
     tag = st.text_input("please enter item tag",placeholder="untagged")
     submitted = st.form_submit_button("submit")
     if submitted:
-        response = requests.put(url=f"http://budget-app-backend-1:8000/budget_item/{index}",json={"name":name,'price':price,'tag':tag}).json()
+        response = requests.put(url=f"http://budget-app-backend-1:8000/v1/budget_item/{index}",json={"name":name,'price':price,'tag':tag}).json()
         st.table(response)

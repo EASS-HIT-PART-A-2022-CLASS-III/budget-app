@@ -17,8 +17,8 @@ async def landing_page():
     return {"message": "welcome to the site"}
 
 
-@app.get("/budget_item/")
-async def get_all_budget_items():
+@app.get("/v1/budget_item/")
+async def get_all_budget_items_v1():
     result = {}
     for item in budget:
         if item.tag not in result:
@@ -31,8 +31,8 @@ async def get_all_budget_items():
         return {"error": "budget is empty"}
 
 
-@app.get("/budget_item/id")
-async def get_budget_item_ids():
+@app.get("/v1/budget_item/id")
+async def get_budget_item_ids_v1():
     result = {}
     for i in range(len(budget)):
         id = i
@@ -44,15 +44,15 @@ async def get_budget_item_ids():
         return {"error": "Budget is empty"}
 
 
-@app.get("/budget_item/id/{item_id}")
-async def get_budget_item_by_id(item_id: int):
+@app.get("/v1/budget_item/id/{item_id}")
+async def get_budget_item_by_id_v1(item_id: int):
     try:
         return budget[item_id]
     except IndexError:
         return {"error": "Budget item not found"}
 
 
-@app.get("/budget_item/tag")
+@app.get("/v1/budget_item/tag")
 async def get_budget_item_tags():
     result = {}
     for item in budget:
@@ -66,8 +66,8 @@ async def get_budget_item_tags():
         return {"error": "Budget has no tags"}
 
 
-@app.get("/budget_item/tag/{item_tag}")
-async def get_budget_item_by_tag(item_tag: str):
+@app.get("/v1/budget_item/tag/{item_tag}")
+async def get_budget_item_by_tag_v1(item_tag: str):
     result = {}
     for item in budget:
         if item.tag == item_tag:
@@ -81,14 +81,14 @@ async def get_budget_item_by_tag(item_tag: str):
         return {"error": "tag not found in budget"}
 
 
-@app.post("/budget_item/", response_model=BudgetItem)
-async def add_budget_item(item: BudgetItem):
+@app.post("/v1/budget_item/", response_model=BudgetItem)
+async def add_budget_item_v1(item: BudgetItem):
     budget.append(item)
     return item
 
 
-@app.put("/budget_item/{item_id}")
-async def edit_budget_item(item: BudgetItem, item_id: int):
+@app.put("/v1/budget_item/{item_id}")
+async def edit_budget_item_v1(item: BudgetItem, item_id: int):
     try:
         budget[item_id].name = item.name
         budget[item_id].price = item.price
@@ -98,8 +98,8 @@ async def edit_budget_item(item: BudgetItem, item_id: int):
         return {"error": "Budget item not found"}
 
 
-@app.delete("/budget_item/{item_id}")
-async def remove_budget_item(item_id: int):
+@app.delete("/v1/budget_item/{item_id}")
+async def remove_budget_item_v1(item_id: int):
     try:
         budget.pop(item_id)
         return {"message": "Budget item removed succcessfully"}
