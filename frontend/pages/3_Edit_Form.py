@@ -11,10 +11,11 @@ for item in response:
     index_list.append(item)
     name_list.append(response[item])
 df = pd.DataFrame({"index":index_list,"name":name_list})
-st.dataframe(df)
+index = st.selectbox("please select the index of the product you would like to edit",index_list)
+response = requests.get(url=f"http://budget-app-backend-1:8000/budget_item/id/{index}").json()
+st.table(response)
 
 with st.form("Edit Form"):
-    index = st.text_input("please enter the index of item")
     st.write("please provide the information about the purchased item")
     name = st.text_input("please enter item name")
     price = st.text_input("please enter item price")
