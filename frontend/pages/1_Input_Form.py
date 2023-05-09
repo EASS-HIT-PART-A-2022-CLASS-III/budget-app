@@ -13,5 +13,5 @@ with st.form("Input Form"):
         tag = "untagged"
     submitted = st.form_submit_button("submit")
     if submitted:
-        response = requests.post(url="http://project-backend-1:8000/budget_item",json={"name":name,'price':price,'tag':tag}).json()
+        response = requests.post(url="http://budget-app-backend-1:8000/budget_item",json={"name":name,'price':price,'tag':tag}).json()
         st.table(response)
