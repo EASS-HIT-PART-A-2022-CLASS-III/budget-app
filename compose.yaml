@@ -1,11 +1,11 @@
 services:
   backend:
-    build: backend/.
+    build: backend/
     ports:
       - "8000:8000"
     expose:
       - 8000
   frontend:
-    build: frontend/.
+    build: frontend/
     ports:
       - "80:8501"

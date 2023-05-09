@@ -25,7 +25,7 @@ docker-compose up
 ```
 ## Usage
 To use the application, follow these steps:
-1. enter http://budget-app-backend-1:8000/docs in your browser
+1. enter http://localhost:8000/docs in your browser
 2. various features of the app are:
     1. get("/budget_item/") to view the budget
     2. get("/budget_item/id") to view each item's id
