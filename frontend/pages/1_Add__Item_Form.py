@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-st.title("Input Form")
+st.title("Add Item Form")
 st.write("On this page you can add an item to your list")
 
 with st.form("Input Form"):
