@@ -1,15 +1,9 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
+from model import BudgetItem
 
 app = FastAPI()
 
 budget = []
-
-
-class BudgetItem(BaseModel):
-    name: str
-    price: float
-    tag: str = "untagged"
 
 
 @app.get("/")
