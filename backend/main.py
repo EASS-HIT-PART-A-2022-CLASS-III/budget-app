@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from model import BudgetItem
 from uuid import UUID
+from database import(get_all_budget_items,get_budget_item_ids,insert_budget_item)
 
 app = FastAPI()
 
@@ -36,6 +37,14 @@ async def get_all_budget_items_v2():
             result[value["tag"]] = value["price"]
         else:
             result[value["tag"]] = result[value["tag"]] + value["price"]
+    if len(result) != 0:
+        return result
+    else:
+        return {"error": "budget is empty"}
+    
+@app.get("/v3/budget_item/")
+async def get_all_budget_items_v3():
+    result =  await get_all_budget_items()
     if len(result) != 0:
         return result
     else:
@@ -147,6 +156,12 @@ async def add_budget_item_v2(Name: str,Price: float,Tag: str = "untagged"):
     item = BudgetItem(name=Name,price=Price,tag=Tag)
     budgetV2[item.id] = {"name":item.name,"price":item.price,"tag":item.tag}
     return item
+
+@app.post("/v3/budget_item/", response_model=BudgetItem)
+async def add_budget_item_v3(Name: str,Price: float,Tag: str = "untagged"):
+    item = BudgetItem(name=Name,price=Price,tag=Tag)
+    response = await insert_budget_item(item.dict())
+    return response
 
 @app.put("/v1/budget_item/{item_id}")
 async def edit_budget_item_v1(item: BudgetItem, item_id: int):

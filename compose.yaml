@@ -5,7 +5,19 @@ services:
       - "8000:8000"
     expose:
       - 8000
+    depends_on:
+      - mongo
+    links:
+    - mongo:db
   frontend:
     build: frontend/
     ports:
       - "80:8501"
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: secret
+    ports:
+      - "27017:27017"
