@@ -14,7 +14,5 @@ with st.form("Input Form"):
     submitted = st.form_submit_button("submit")
     if submitted:
         response = requests.post(
-            url="http://budget-app-backend-1:8000/v1/budget_item",
-            json={"name": name, "price": price, "tag": tag},
-        ).json()
+            url=f"http://budget-app-backend-1:8000/v2/budget_item?Name={name}&Price={price}&Tag={tag}").json()
         st.table(response)

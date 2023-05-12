@@ -3,16 +3,20 @@ import requests
 import pandas as pd
 import matplotlib.pyplot as plt
 
-response = requests.get(url="http://budget-app-backend-1:8000/v1/budget_item").json()
+response = requests.get(url="http://budget-app-backend-1:8000/v2/budget_item").json()
 type_list = []
 price_list = []
 for item in response:
     type_list.append(item)
     price_list.append(response[item])
 df = pd.DataFrame({"type": type_list, "price": price_list})
+
 st.title("Welcome to :red[Smart Budget]")
 st.write("On this page you can see your budget list")
-st.dataframe(df)
+if df["type"][0] == "error":
+    st.write("Budget is currently empty")
+else:
+    st.dataframe(df)
 
 if "budget is empty" not in price_list:
     plt.rcParams.update({"text.color": "white"})
