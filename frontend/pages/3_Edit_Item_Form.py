@@ -5,7 +5,7 @@ import pandas as pd
 st.title("Edit Item Form")
 st.write("On this page you can edit an item already on your list")
 
-response = requests.get(url="http://budget-app-backend-1:8000/v2/budget_item/id").json()
+response = requests.get(url="http://budget-app-backend-1:8000/v3/budget_item/id").json()
 index_list = []
 name_list = []
 for item in response:
@@ -20,7 +20,7 @@ else:
     "please select the index of the product you would like to edit", index_list
 )
     response = requests.get(
-        url=f"http://budget-app-backend-1:8000/v2/budget_item/id/{df['name'][int(index)]}"
+        url=f"http://budget-app-backend-1:8000/v3/budget_item/id/{df['name'][int(index)]}"
     ).json()
     st.table(response)
     with st.form("Edit Form"):
@@ -31,7 +31,7 @@ else:
         submitted = st.form_submit_button("submit")
         if submitted:
             response = requests.put(
-                url=f"http://budget-app-backend-1:8000/v2/budget_item/{df['name'][int(index)]}?Name={name}&Price={price}&Tag={tag}",
+                url=f"http://budget-app-backend-1:8000/v3/budget_item/{df['name'][int(index)]}?Name={name}&Price={price}&Tag={tag}",
                 json={"name": name, "price": price, "tag": tag},
             ).json()
             st.table(response)
