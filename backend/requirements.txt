@@ -4,3 +4,9 @@ pytest
 pydantic
 uvicorn
 motor
+twisted
+anyio
+pytest-asyncio
+pytest-tornasync
+pytest-trio
+pytest-twisted

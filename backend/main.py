@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from model import BudgetItem
 from uuid import UUID
 from database import (
