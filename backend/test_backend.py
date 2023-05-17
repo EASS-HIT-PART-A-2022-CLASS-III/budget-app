@@ -1,5 +1,7 @@
 from fastapi.testclient import TestClient
 from main import app
+import httpx
+import requests
 
 
 client = TestClient(app)
@@ -12,48 +14,50 @@ def test_read_main():
 
 
 def test_post_item():
-    response = client.post(
-        "http://localhost:8000/v3/budget_item?Name=piza&Price=80&Tag=food"
+    response = requests.post(
+        url="http://localhost:8000/v3/budget_item?Name=piza&Price=80&Tag=food"
     )
     assert response.status_code == 200
 
 
 def test_read_budget():
-    response = client.get("/v3/budget_item/")
+    response = httpx.get("http://localhost:8000/v3/budget_item/")
     assert response.status_code == 200
 
 
 def test_read_all_ids():
-    response = client.get("v3/budget_item/id")
+    response = httpx.get("http://localhost:8000/v3/budget_item/id")
     assert response.status_code == 200
 
 
 def test_spesific_id():
-    first_response = client.get("v3/budget_item/id").json
-    item_id = first_response[len(first_response) - 1]
-    response = client.get(f"v3/budget_item/id/{item_id}")
+    first_response = httpx.get("http://localhost:8000/v3/budget_item/id").json()
+    item_id = first_response[str(len(first_response) - 1)]
+    response = httpx.get(f"http://localhost:8000/v3/budget_item/id/{item_id}")
     assert response.status_code == 200
 
 
 def test_spesific_tag():
-    response = client.get("v3/budget_item/tag")
+    response = httpx.get("http://localhost:8000/v3/budget_item/tag")
+    assert response.status_code == 200
+
+
+def test_spesific_tag():
+    response = httpx.get("http://localhost:8000/v3/budget_item/tag/food")
     assert response.status_code == 200
 
 
 def test_item_edit():
-    first_response = client.get("v3/budget_item/id").json
-    item_id = first_response[len(first_response) - 1]
-    response = client.put(f"/v3/budget_item/{item_id}?Name=pizza&Price=80&Tag=food")
+    first_response = httpx.get("http://localhost:8000/v3/budget_item/id").json()
+    item_id = first_response[str(len(first_response) - 1)]
+    response = requests.put(
+        f"http://localhost:8000/v3/budget_item/{item_id}?Name=pizza&Price=80&Tag=food"
+    )
     assert response.status_code == 200
 
 
 def test_remove_item():
-    first_response = client.get("v3/budget_item/id").json
-    item_id = first_response[len(first_response) - 1]
-    response = client.delete(f"v3/budget_item/{item_id}")
-    assert response.status_code == 200
-
-
-def test_spesific_tag():
-    response = client.get("http://localhost:8000/v3/budget_item/tag/food")
+    first_response = httpx.get("http://localhost:8000/v3/budget_item/id").json()
+    item_id = first_response[str(len(first_response) - 1)]
+    response = requests.delete(f"http://localhost:8000/v3/budget_item/{item_id}")
     assert response.status_code == 200
