@@ -15,7 +15,7 @@ services:
       - "80:8501"
   mongo:
     image: mongo
-    restart: always
+    restart: on-failure
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: secret

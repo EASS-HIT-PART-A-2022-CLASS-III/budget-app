@@ -25,17 +25,14 @@ docker-compose up
 ```
 ## Usage
 To use the application, follow these steps:
-1. enter http://localhost:8000/docs in your browser
-2. various features of the app are:
-    1. get("/budget_item/") to view the budget
-    2. get("/budget_item/id") to view each item's id
-    3. get("/budget_item/id/{item_id}") to view spesific items data
-    4. get("/budget_item/tag") to view all item's tags
-    5. get("/budget_item/tag/{item_tag}") to view all items with spesific tag
-    6. post("/budget_item/") to add an item to the budget
-    7. put("/budget_item/{item_id}") to edit an item with the specific id
-    8. delete("/budget_item/{item_id}") to delet an item with the spesific id from the budget
+1. enter http://localhost:80 in your browser
+2. various pages of the app are:
+    1. Homepage to view the complete budget, as well as breakdown by tags and pie chart.
+    2. Add Item Form page to add an item to the budget
+    3. Tags Form page to view budget items of a certain tag
+    4. Delete Item Form page to delete an item from the budget
 
+    
 ## Support
 If you encounter any issues with the application or have any questions, please contact email address orshaharr@gmail.com
 
